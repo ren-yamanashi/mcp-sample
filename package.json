@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsgo",
+    "prebuild": "tsgo --noEmit --skipLibCheck",
+    "build": "rm -rf dist && tsgo",
     "lint": "oxlint",
-    "typecheck": "tsgo --noEmit",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -20,11 +20,13 @@
     "@types/node": "^24.2.0",
     "@typescript/native-preview": "7.0.0-dev.20250805.1",
     "oxlint": "^1.9.0",
+    "prettier": "4.0.0-alpha.12",
     "typescript": "^5.9.2",
     "vitepress": "^1.6.3"
   },
   "packageManager": "pnpm@10.8.0",
   "bin": {
-    "local-document-mcp": "./dist/local-document-mcp/index.js"
+    "local-document-mcp": "./dist/local-document-mcp/index.js",
+    "remote-document-mcp": "./dist/remote-document-mcp/index.js"
   }
 }
