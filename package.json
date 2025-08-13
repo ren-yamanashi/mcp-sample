@@ -26,7 +26,8 @@
   },
   "packageManager": "pnpm@10.8.0",
   "bin": {
-    "local-document-mcp": "./dist/resources-api/docs-search/local-document-mcp.js",
-    "remote-document-mcp": "./dist/resources-api/docs-search/remote-document-mcp.js"
+    "local-document-mcp": "./dist/docs-search/local-document-mcp.js",
+    "remote-document-mcp": "./dist/docs-search/remote-document-mcp.js",
+    "load-resource-mcp": "./dist/docs-search/load-resource-mcp.js"
   }
 }

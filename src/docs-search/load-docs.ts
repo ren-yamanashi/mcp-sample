@@ -3,8 +3,8 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { simpleGit } from "simple-git";
-import { TARGET_REPOSITORY } from "../../shared/repository.js";
-import type { DocFile } from "../../shared/doc-file.js";
+import { TARGET_REPOSITORY } from "../shared/repository.ts";
+import type { DocFile } from "./doc-file.ts";
 
 export const loadDocs = async (): Promise<DocFile[]> => {
   const mdGlobPattern = "**/*.md";

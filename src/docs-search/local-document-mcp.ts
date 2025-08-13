@@ -3,32 +3,37 @@
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import pj from "../../../package.json" with { type: "json" };
-import { fetchDocs } from "./fetch-docs.js";
-import { searchDocs } from "./search-docs.js";
+import pj from "../../package.json" with { type: "json" };
+import { loadDocs } from "./load-docs.ts";
+import { searchDocs } from "./search-docs.ts";
 
 const main = async () => {
   const server = new McpServer({
-    name: "remoteDocsSearch",
-    description: "remote documentation search mcp server",
+    name: "localDocsSearch",
+    description: "local documentation search mcp server",
     version: pj.version,
   });
+  const docFiles = await loadDocs();
 
-  const docFiles = await fetchDocs();
+  server.registerTool(
+    "read_docs",
+    { inputSchema: { path: z.string() } },
+    async ({ path }) => {
+      const doc = docFiles.find((doc) => doc.path === path);
+      return {
+        content: [{ type: "text", text: doc?.content ?? "document not found" }],
+      };
+    }
+  );
 
-  server.tool("read_docs", { path: z.string() }, async ({ path }) => {
-    const doc = docFiles.find((doc) => doc.path === path);
-    return {
-      content: [{ type: "text", text: doc?.content ?? "document not found" }],
-    };
-  });
-
-  server.tool(
+  server.registerTool(
     "search_docs",
     {
-      query: z.string(),
-      offset: z.number(),
-      limit: z.number().default(20),
+      inputSchema: {
+        query: z.string(),
+        offset: z.number(),
+        limit: z.number().default(20),
+      },
     },
     async ({ query, offset, limit }) => {
       const queries = query.toLowerCase().split(" ");
@@ -44,6 +49,7 @@ const main = async () => {
       }
 
       return {
+        isError: true,
         content: [
           {
             type: "text",

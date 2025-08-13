@@ -1,4 +1,4 @@
-import type { DocFile } from "../../shared/doc-file.js";
+import type { DocFile } from "./doc-file.ts";
 
 export const searchDocs = async (args: {
   docsIndexes: DocFile[];

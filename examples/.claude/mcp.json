@@ -9,6 +9,11 @@
       "type": "stdio",
       "command": "npx",
       "args": ["remote-document-mcp"]
+    },
+    "load-resource-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["load-resource-mcp"]
     }
   }
 }

@@ -5,5 +5,5 @@
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "typescript.preferences.importModuleSpecifier": "relative",
-  "cSpell.words": ["modelcontextprotocol"]
+  "cSpell.words": ["modelcontextprotocol", "nodenext"]
 }
