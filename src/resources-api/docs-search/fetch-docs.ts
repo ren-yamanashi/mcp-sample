@@ -1,6 +1,6 @@
-import type { DocFile } from "../shared/doc-file.js";
-import pj from "../../package.json" with { type: "json" };
-import { TARGET_REPOSITORY } from "../shared/repository.js";
+import type { DocFile } from "../../shared/doc-file.js";
+import pj from "../../../package.json" with { type: "json" };
+import { TARGET_REPOSITORY } from "../../shared/repository.js";
 
 interface GitHubFile {
   name: string;
