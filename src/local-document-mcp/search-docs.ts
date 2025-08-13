@@ -1,4 +1,4 @@
-import type { DocFile } from "./types.js";
+import type { DocFile } from "./doc-file.js";
 
 export const searchDocs = async (args: {
   docsIndexes: DocFile[];

@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { simpleGit } from "simple-git";
-import type { DocFile } from "./types.js";
+import type { DocFile } from "./doc-file.js";
 
 export const loadDocs = async (): Promise<DocFile[]> => {
   const repoUrl = "https://github.com/ren-yamanashi/eslint-cdk-plugin";

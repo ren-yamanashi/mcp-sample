@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import pj from "../package.json" with { type: "json" };
+import pj from "../../package.json" with { type: "json" };
 import { loadDocs } from "./load-docs.js";
 import { searchDocs } from "./search-docs.js";
 
@@ -13,7 +13,7 @@ const main = async () => {
     description: "documentation search mcp server",
     version: pj.version
   })
-  const docsIndexes = await loadDocs();
+  const docFiles = await loadDocs();
 
 	server.tool(
 		"search_docs",
@@ -24,7 +24,7 @@ const main = async () => {
 		},
 		async ({ query, offset, limit }) => {
 			const queries = query.toLowerCase().split(" ");
-			const results = await searchDocs({docsIndexes, queries, offset, limit});
+			const results = await searchDocs({docsIndexes: docFiles, queries, offset, limit});
 
 			if (results.length) {
 				return { content: [{ type: "text", text: JSON.stringify(results) }] };
@@ -34,7 +34,7 @@ const main = async () => {
 				content: [
 					{
 						type: "text",
-						text: `No docs for ${query} found in ${docsIndexes.length} pages.`,
+						text: `No docs for ${query} found in ${docFiles.length} pages.`,
 					},
 				],
 			};
@@ -42,7 +42,7 @@ const main = async () => {
 	);
 
 	server.tool("read_docs", { path: z.string() }, async ({ path }) => {
-		const doc = docsIndexes.find((doc) => doc.path === path);
+		const doc = docFiles.find((doc) => doc.path === path);
 		return {
 			content: [{ type: "text", text: doc?.content ?? "document not found" }],
 		};

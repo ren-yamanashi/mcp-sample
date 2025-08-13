@@ -25,6 +25,6 @@
   },
   "packageManager": "pnpm@10.8.0",
   "bin": {
-    "local-document-mcp": "./dist/main.js"
+    "local-document-mcp": "./dist/local-document-mcp/index.js"
   }
 }
