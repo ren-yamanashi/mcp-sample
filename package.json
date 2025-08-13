@@ -2,9 +2,6 @@
   "name": "mcp-sample",
   "version": "1.0.0",
   "type": "module",
-  "bin": {
-    "local-document-mcp": "./dist/server.js"
-  },
   "scripts": {
     "build": "tsgo",
     "lint": "oxlint",
@@ -17,7 +14,7 @@
     "@modelcontextprotocol/sdk": "^1.17.1",
     "glob": "^11.0.3",
     "simple-git": "^3.28.0",
-    "zod": "^4.0.14"
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/node": "^24.2.0",
@@ -26,5 +23,8 @@
     "typescript": "^5.9.2",
     "vitepress": "^1.6.3"
   },
-  "packageManager": "pnpm@10.8.0"
+  "packageManager": "pnpm@10.8.0",
+  "bin": {
+    "local-document-mcp": "./dist/main.js"
+  }
 }

@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["modelcontextprotocol"]
+  "cSpell.words": ["modelcontextprotocol"],
+  "oxc.enable": true,
+  "oxc.lint.run": "onType",
+  "oxc.tsConfigPath": "tsconfig.json",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

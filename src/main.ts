@@ -24,27 +24,23 @@ const main = async () => {
 		},
 		async ({ query, offset, limit }) => {
 			const queries = query.toLowerCase().split(" ");
-			// 1. prioritize title match
-			const results = await searchDocs(docsIndexes, queries, offset, limit);
+			const results = await searchDocs({docsIndexes, queries, offset, limit});
 
-			if (!results.length) {
-				return {
-					content: [
-						{
-							type: "text",
-							text: `No docs for ${query} found in ${docsIndexes.length} pages.`,
-						},
-					],
-				};
+			if (results.length) {
+				return { content: [{ type: "text", text: JSON.stringify(results) }] };
 			}
-
+			
 			return {
-				content: [{ type: "text", text: JSON.stringify(results) }],
+				content: [
+					{
+						type: "text",
+						text: `No docs for ${query} found in ${docsIndexes.length} pages.`,
+					},
+				],
 			};
 		},
 	);
 
-  // NOTE: read_docs might not be called because search_docs contains contents.
 	server.tool("read_docs", { path: z.string() }, async ({ path }) => {
 		const doc = docsIndexes.find((doc) => doc.path === path);
 		return {
@@ -52,7 +48,6 @@ const main = async () => {
 		};
 	});
 
-	// Start receiving messages on stdin and sending messages on stdout
 	const transport = new StdioServerTransport();
 	await server.connect(transport);
 }

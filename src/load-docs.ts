@@ -5,11 +5,10 @@ import * as path from "node:path";
 import { simpleGit } from "simple-git";
 import type { DocFile } from "./types.js";
 
-export async function loadDocs(): Promise<DocFile[]> {
-  const REPO = "https://github.com/ren-yamanashi/eslint-cdk-plugin";
-  const BRANCH = "main";
-  const DOCS_PATH = "docs/rules";
-  const MARKDOWN_GLOB_PATTERN = "**/*.md";
+export const loadDocs = async (): Promise<DocFile[]> => {
+  const repoUrl = "https://github.com/ren-yamanashi/eslint-cdk-plugin";
+  const docsPath = "docs/rules";
+  const mdGlobPattern = "**/*.md";
 
   const targetDir = path.join(os.tmpdir(), "docs-local-mcp-server");
 
@@ -18,49 +17,42 @@ export async function loadDocs(): Promise<DocFile[]> {
       await fs.promises.rm(targetDir, { recursive: true, force: false });
     }
   } catch (error) {
-    console.error(`Error while deleting targetDir ${targetDir}: ${error}`);
+    console.error(`Error while deleting ${targetDir}: ${error}`);
   }
 
-  await gitClone({
-    repoUrl: REPO,
-    targetDir,
-    docsPath: DOCS_PATH,
-    branchName: BRANCH,
-  });
+  await gitClone({ repoUrl, targetDir, docsPath });
 
-  const docsParent = path.join(targetDir, DOCS_PATH);
-  const relativePaths = await glob(MARKDOWN_GLOB_PATTERN, { cwd: docsParent });
+  const docsParent = path.join(targetDir, docsPath);
+  const relativePaths = await glob(mdGlobPattern, { cwd: docsParent });
 
   if (!relativePaths.length) {
-    console.error(`No Markdown files found in ${docsParent}.`);
+    console.error(`Markdown files not found in ${docsParent}.`);
     return [];
   }
 
-  // NOTE: get doc files
   const docFiles = (
     await Promise.all(
-      relativePaths.map((relativePath) => getDocFile(relativePath, docsParent))
+      relativePaths.map((relativePath) =>
+        getDocFile({ relativePath, docsParent })
+      )
     )
   ).filter((file) => !!file);
 
   return docFiles;
-}
+};
 
 const gitClone = async (args: {
   repoUrl: string;
   targetDir: string;
   docsPath: string;
-  branchName: string;
 }) => {
-  const { repoUrl, targetDir, docsPath, branchName } = args;
+  const { repoUrl, targetDir, docsPath } = args;
   const git = simpleGit();
   try {
     console.info(`Start cloning repo ${repoUrl} to ${targetDir}`);
     await git.clone(repoUrl, targetDir, [
       "--depth",
       "1",
-      "--branch",
-      branchName,
       "--sparse",
       "--filter=blob:none",
     ]);
@@ -75,10 +67,12 @@ const gitClone = async (args: {
   }
 };
 
-const getDocFile = async (
-  relativePath: string,
-  docsParent: string
-): Promise<DocFile | null> => {
+const getDocFile = async (args: {
+  relativePath: string;
+  docsParent: string;
+}): Promise<DocFile | null> => {
+  const { relativePath, docsParent } = args;
+
   const absPath = path.join(docsParent, relativePath);
   try {
     const content = await fs.promises.readFile(absPath, "utf-8");

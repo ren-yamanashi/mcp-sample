@@ -1,5 +1,0 @@
-packages:
-  # ルートパッケージ（mcp-sample本体）
-  - '.'
-  # examplesディレクトリ内のパッケージ
-  - 'examples'

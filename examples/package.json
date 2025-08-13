@@ -5,9 +5,10 @@
   "description": "Examples for mcp-sample",
   "type": "module",
   "scripts": {
-    "mcp": "npx local-document-mcp"
+    "mcp": "npx local-document-mcp",
+    "reinstall": "rm -rf node_modules && ni"
   },
   "devDependencies": {
-    "mcp-sample": "workspace:*"
+    "mcp-sample": "file:../mcp-sample-1.0.0.tgz"
   }
 }
