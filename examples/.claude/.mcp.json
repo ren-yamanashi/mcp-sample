@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "local-document-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "local-document-mcp@latest"
+      ]
+    }
+  }
+}

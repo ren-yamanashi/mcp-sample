@@ -1,0 +1,13 @@
+{
+  "name": "mcp-sample-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Examples for mcp-sample",
+  "type": "module",
+  "scripts": {
+    "mcp": "npx local-document-mcp"
+  },
+  "devDependencies": {
+    "mcp-sample": "workspace:*"
+  }
+}
