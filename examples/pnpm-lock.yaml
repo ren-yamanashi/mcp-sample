@@ -267,7 +267,7 @@ packages:
     engines: {node: '>= 0.4'}
 
   mcp-sample@file:../mcp-sample-1.0.0.tgz:
-    resolution: {integrity: sha512-HKtC3F5CcWvb3PjV2ha6B+w4QS/SYDT5isQ1wFDdaZ5luME6jNbArRoA4Xfqc9gnoH6QK248WKAE4u1uByPjGQ==, tarball: file:../mcp-sample-1.0.0.tgz}
+    resolution: {integrity: sha512-1w9cFKn/gjAMVfhk9epsW/EoOy7YGKv3kAR/CGsJu7xMjvP/2J+sQUQMqYrRQn5rvvvXrsg/jN1CGUWVADZjEA==, tarball: file:../mcp-sample-1.0.0.tgz}
     version: 1.0.0
     hasBin: true
 

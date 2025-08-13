@@ -9,8 +9,8 @@ import { searchDocs } from "../shared/search-docs.js";
 
 const main = async () => {
   const server = new McpServer({
-    name: "DocsSearch",
-    description: "documentation search mcp server",
+    name: "LocalDocsSearch",
+    description: "local documentation search mcp server",
     version: pj.version,
   });
   const docFiles = await loadDocs();

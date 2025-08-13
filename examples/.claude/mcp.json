@@ -3,9 +3,12 @@
     "local-document-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "local-document-mcp"
-      ]
+      "args": ["local-document-mcp"]
+    },
+    "remote-document-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["remote-document-mcp"]
     }
   }
 }
