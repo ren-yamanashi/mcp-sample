@@ -28,6 +28,7 @@
   "bin": {
     "local-document-mcp": "./dist/docs-search/local-document-mcp.js",
     "remote-document-mcp": "./dist/docs-search/remote-document-mcp.js",
-    "load-resource-mcp": "./dist/docs-search/load-resource-mcp.js"
+    "load-resource-mcp": "./dist/docs-search/load-resource-mcp.js",
+    "translation-prompt-mcp": "./dist/translation/prompt-mcp.js"
   }
 }

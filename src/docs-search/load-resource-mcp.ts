@@ -17,7 +17,7 @@ const main = async () => {
 
   // Register each document as an individual resource
   for (const doc of docFiles) {
-    const resourceUri = `${TARGET_REPOSITORY.URL}/${TARGET_REPOSITORY.DOCS_PATH}/${doc.path}`;
+    const resourceUri = `eslint-cdk-plugin://docs/rules/${doc.path}`;
 
     server.registerResource(
       doc.path,
@@ -26,10 +26,10 @@ const main = async () => {
         title: doc.path.replace(".md", ""),
         description: `Documentation for ${doc.path} from ${TARGET_REPOSITORY.NAME} repository.`,
       },
-      async () => ({
+      async (uri) => ({
         contents: [
           {
-            uri: resourceUri,
+            uri: uri.href,
             text: doc.content,
           },
         ],
@@ -40,7 +40,7 @@ const main = async () => {
   // Register a resource that lists all available documents
   server.registerResource(
     "index",
-    `${TARGET_REPOSITORY.URL}/${TARGET_REPOSITORY.DOCS_PATH}`,
+    "eslint-cdk-plugin://docs/rules/",
     {
       title: `${TARGET_REPOSITORY.NAME} Documentation Index`,
       description: `List of all available documentation files from ${TARGET_REPOSITORY.NAME} repository.`,
@@ -50,7 +50,10 @@ const main = async () => {
         {
           uri: uri.href,
           text: docFiles
-            .map((doc) => `- [${doc.path}](${uri.href}/${doc.path})`)
+            .map(
+              (doc) =>
+                `- [${doc.path}](eslint-cdk-plugin://docs/rules/${doc.path})`
+            )
             .join("\n"),
         },
       ],
