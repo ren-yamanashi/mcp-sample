@@ -1,6 +1,6 @@
 import type { DocFile } from "./doc-file.ts";
 import pj from "../../package.json" with { type: "json" };
-import { TARGET_REPOSITORY } from "../shared/repository.ts";
+import { TARGET_REPOSITORY } from "./git-repository.ts";
 
 interface GitHubFile {
   name: string;

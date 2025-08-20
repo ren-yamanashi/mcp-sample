@@ -4,18 +4,15 @@ import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import pj from "../../package.json" with { type: "json" };
-
-import { searchDocs } from "./search-docs.ts";
-import { fetchDocs } from "./fetch-docs.ts";
+import { loadDocs } from "../_shared/load-docs.ts";
+import { searchDocs } from "../_shared/search-docs.ts";
 
 const main = async () => {
   const server = new McpServer({
-    name: "remoteDocsSearch",
-    description: "remote documentation search mcp server",
+    name: "local-document-mcp-server",
     version: pj.version,
   });
-
-  const docFiles = await fetchDocs();
+  const docFiles = await loadDocs();
 
   server.registerTool(
     "read_docs",
@@ -51,6 +48,7 @@ const main = async () => {
       }
 
       return {
+        isError: true,
         content: [
           {
             type: "text",

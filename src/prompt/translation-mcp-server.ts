@@ -5,8 +5,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 
 const main = async () => {
   const server = new McpServer({
-    name: "translationPromptMcp",
-    description: "Translation prompt MCP server",
+    name: "translation-mcp-server",
     version: pj.version,
   });
 
@@ -14,7 +13,6 @@ const main = async () => {
     "translation",
     {
       title: "Code Review",
-      description: "Review code for best practices and potential issues",
       argsSchema: { text: z.string() },
     },
     ({ text }) => ({

@@ -3,7 +3,7 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { simpleGit } from "simple-git";
-import { TARGET_REPOSITORY } from "../shared/repository.ts";
+import { TARGET_REPOSITORY } from "./git-repository.ts";
 import type { DocFile } from "./doc-file.ts";
 
 export const loadDocs = async (): Promise<DocFile[]> => {
@@ -28,15 +28,7 @@ export const loadDocs = async (): Promise<DocFile[]> => {
     return [];
   }
 
-  const docFiles = (
-    await Promise.all(
-      relativePaths.map((relativePath) =>
-        getDocFile({ relativePath, docsParent })
-      )
-    )
-  ).filter((file) => !!file);
-
-  return docFiles;
+  return await getDocFiles({ relativePaths, docsParent });
 };
 
 const gitClone = async (targetDir: string) => {
@@ -62,21 +54,27 @@ const gitClone = async (targetDir: string) => {
   }
 };
 
-const getDocFile = async (args: {
-  relativePath: string;
+const getDocFiles = async (args: {
+  relativePaths: string[];
   docsParent: string;
-}): Promise<DocFile | null> => {
-  const { relativePath, docsParent } = args;
+}): Promise<DocFile[]> => {
+  const { relativePaths, docsParent } = args;
 
-  const absPath = path.join(docsParent, relativePath);
-  try {
-    const content = await fs.promises.readFile(absPath, "utf-8");
-    return {
-      path: relativePath,
-      content: String(content),
-    };
-  } catch (error) {
-    console.error(`Error reading file ${absPath}: ${error}`);
-    return null;
-  }
+  const files = await Promise.all(
+    relativePaths.map(async (relativePath) => {
+      const absPath = path.join(docsParent, relativePath);
+      try {
+        const content = await fs.promises.readFile(absPath, "utf-8");
+        return {
+          path: relativePath,
+          content: String(content),
+        };
+      } catch (error) {
+        console.error(`Error reading file ${absPath}: ${error}`);
+        return null;
+      }
+    })
+  );
+
+  return files.filter((file) => !!file);
 };

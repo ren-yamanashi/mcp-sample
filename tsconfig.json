@@ -13,7 +13,7 @@
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "src",
-    "outDir": "./dist",
+    "outDir": "./bin",
     "target": "esnext",
     "module": "nodenext",
     "allowImportingTsExtensions": true,
@@ -21,6 +21,12 @@
     "verbatimModuleSyntax": true,
     "resolveJsonModule": true
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "src/_shared/git-repository.ts",
+    "src/tool/local-document.ts",
+    "src/tool/remote-document.ts",
+    "src/_shared/search-docs.ts"
+  ],
   "exclude": ["dist", "node_modules"]
 }

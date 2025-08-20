@@ -4,11 +4,8 @@
   "type": "module",
   "scripts": {
     "prebuild": "tsgo --noEmit --skipLibCheck",
-    "build": "rm -rf dist && tsgo",
-    "lint": "oxlint",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "build": "rm -rf bin && tsgo",
+    "lint": "oxlint"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.1",
@@ -26,9 +23,12 @@
   },
   "packageManager": "pnpm@10.8.0",
   "bin": {
-    "local-document-mcp": "./dist/docs-search/local-document-mcp.js",
-    "remote-document-mcp": "./dist/docs-search/remote-document-mcp.js",
-    "load-resource-mcp": "./dist/docs-search/load-resource-mcp.js",
-    "translation-prompt-mcp": "./dist/translation/prompt-mcp.js"
-  }
+    "translation-mcp-server": "./bin/prompt/translation-mcp-server.js",
+    "document-mcp-server": "./bin/resource/document-mcp-server.js",
+    "local-document-mcp-server": "./bin/tool/local-document-mcp-server.js",
+    "remote-document-mcp-server": "./bin/tool/remote-document-mcp-server.js"
+  },
+  "files": [
+    "bin"
+  ]
 }

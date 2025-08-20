@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import pj from "../../package.json" with { type: "json" };
-import { fetchDocs } from "./fetch-docs.ts";
-import { TARGET_REPOSITORY } from "../shared/repository.ts";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import pj from "../../package.json" with { type: "json" };
+import { fetchDocs } from "../_shared/fetch-docs.ts";
+import { TARGET_REPOSITORY } from "../_shared/git-repository.ts";
 
 const main = async () => {
   const server = new McpServer({
-    name: "loadResource",
-    description: "load documentation resource mcp server",
+    name: "document-mcp-server",
     version: pj.version,
   });
 
@@ -17,13 +16,14 @@ const main = async () => {
 
   // Register each document as an individual resource
   for (const doc of docFiles) {
+    const name = doc.path.replace(".md", "");
     const resourceUri = `eslint-cdk-plugin://docs/rules/${doc.path}`;
 
     server.registerResource(
-      doc.path,
+      name,
       resourceUri,
       {
-        title: doc.path.replace(".md", ""),
+        title: name,
         description: `Documentation for ${doc.path} from ${TARGET_REPOSITORY.NAME} repository.`,
       },
       async (uri) => ({

@@ -1,24 +1,24 @@
 {
   "mcpServers": {
-    "local-document-mcp": {
+    "translation-mcp-server": {
       "type": "stdio",
       "command": "npx",
-      "args": ["local-document-mcp"]
+      "args": ["translation-mcp-server"]
     },
-    "remote-document-mcp": {
+    "document-mcp-server": {
       "type": "stdio",
       "command": "npx",
-      "args": ["remote-document-mcp"]
+      "args": ["document-mcp-server"]
     },
-    "load-resource-mcp": {
+    "local-document-mcp-server": {
       "type": "stdio",
       "command": "npx",
-      "args": ["load-resource-mcp"]
+      "args": ["local-document-mcp-server"]
     },
-    "translation-prompt-mcp": {
+    "remote-document-mcp-server": {
       "type": "stdio",
       "command": "npx",
-      "args": ["translation-prompt-mcp"]
+      "args": ["remote-document-mcp-server"]
     }
   }
 }
