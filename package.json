@@ -23,10 +23,10 @@
   },
   "packageManager": "pnpm@10.8.0",
   "bin": {
-    "translation-mcp-server": "./bin/prompt/translation-mcp-server.js",
-    "document-mcp-server": "./bin/resource/document-mcp-server.js",
-    "local-document-mcp-server": "./bin/tool/local-document-mcp-server.js",
-    "remote-document-mcp-server": "./bin/tool/remote-document-mcp-server.js"
+    "translation-mcp-server": "./bin/prompts/translation-mcp-server.js",
+    "document-mcp-server": "./bin/resources/document-mcp-server.js",
+    "local-document-mcp-server": "./bin/tools/local-document-mcp-server.js",
+    "remote-document-mcp-server": "./bin/tools/remote-document-mcp-server.js"
   },
   "files": [
     "bin"
